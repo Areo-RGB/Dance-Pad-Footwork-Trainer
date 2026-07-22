@@ -19,6 +19,7 @@ export type PlayMode = 'TRAINER' | 'INTERACTIVE';
 export interface DrillSettings {
   mode: PlayMode;
   intervalTimeMs: number; // e.g., 1000ms = 1s per step
+  targetSteps: number; // 0 for infinite
   
   // Themes
   activeThemes: string[];

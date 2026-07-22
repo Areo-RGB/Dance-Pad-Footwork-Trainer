@@ -57,8 +57,8 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
             bgStyle = 'bg-emerald-500 text-zinc-950 shadow-[0_0_15px_rgba(16,185,129,0.3)] z-10';
             borderStyle = 'border-2 border-emerald-400';
             label = (
-              <div className="flex flex-col items-center justify-center gap-1">
-                <span className="text-xl font-black leading-none">{leftDir}</span>
+              <div className="flex flex-row items-center justify-center gap-2">
+                <span className="text-2xl font-black leading-none">{leftDir}</span>
                 <span>L</span>
               </div>
             );
@@ -67,8 +67,8 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
             bgStyle = 'bg-sky-500 text-zinc-950 shadow-[0_0_15px_rgba(14,165,233,0.3)] z-10';
             borderStyle = 'border-2 border-sky-400';
             label = (
-              <div className="flex flex-col items-center justify-center gap-1">
-                <span className="text-xl font-black leading-none">{rightDir}</span>
+              <div className="flex flex-row items-center justify-center gap-2">
+                <span className="text-2xl font-black leading-none">{rightDir}</span>
                 <span>R</span>
               </div>
             );
@@ -77,13 +77,13 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
             bgStyle = 'bg-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.3)] z-10';
             borderStyle = 'border-2 border-indigo-400';
             label = (
-              <div className="flex items-center justify-center gap-3">
-                <div className="flex flex-col items-center justify-center gap-1">
-                  <span className="text-lg font-black leading-none">{leftDir}</span>
-                  <span>L</span>
+              <div className="flex flex-col items-center justify-center gap-1">
+                <div className="flex flex-row items-center justify-center gap-3">
+                  <span className="text-2xl font-black leading-none">{leftDir}</span>
+                  <span className="text-2xl font-black leading-none">{rightDir}</span>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-1">
-                  <span className="text-lg font-black leading-none">{rightDir}</span>
+                <div className="flex flex-row items-center justify-center gap-4 text-sm font-bold">
+                  <span>L</span>
                   <span>R</span>
                 </div>
               </div>

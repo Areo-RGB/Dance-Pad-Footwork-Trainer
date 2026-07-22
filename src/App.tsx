@@ -17,6 +17,7 @@ export default function App() {
   const [settings, setSettings] = useState<DrillSettings>({
     mode: 'TRAINER',
     intervalTimeMs: 800,
+    targetSteps: 0,
     activeThemes: ['random'],
     audioVoicePrompt: false,
     audioBeep: false,
@@ -189,7 +190,14 @@ export default function App() {
     return () => {
       if (intervalTimerRef.current) clearInterval(intervalTimerRef.current);
     };
-  }, [isRunning, isPaused, isCountingDown, settings.intervalTimeMs, advanceStep, finishDrill]);
+  }, [isRunning, isPaused, isCountingDown, settings.intervalTimeMs, advanceStep]);
+
+  // Check for target steps completion
+  useEffect(() => {
+    if (isRunning && settings.targetSteps > 0 && currentStepIndex >= settings.targetSteps) {
+      finishDrill();
+    }
+  }, [isRunning, currentStepIndex, settings.targetSteps, finishDrill]);
 
   const resetDrill = () => {
     setIsRunning(false);
@@ -276,6 +284,9 @@ export default function App() {
       <main id="app-main" className="flex-1 flex flex-col mb-16">
         {activeTab === 'trainer' ? (
           <section id="section-trainer" className="flex-1 bg-black flex flex-col relative">
+            <div className="w-full py-5 border-b border-transparent bg-sky-500 text-zinc-950 font-bold uppercase tracking-widest text-sm text-center shadow-[0_0_15px_rgba(14,165,233,0.3)]">
+              STEPS RUN: {currentStepIndex}
+            </div>
             <DanceGrid
               currentTarget={currentTarget}
               interactiveActiveCells={interactiveActiveCells}
