@@ -275,7 +275,7 @@ export default function App() {
     <div id="app-root" className="w-full min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
       <main id="app-main" className="flex-1 flex flex-col mb-16">
         {activeTab === 'trainer' ? (
-          <section id="section-trainer" className="flex-1 bg-black flex flex-col items-center justify-center relative min-h-[400px] md:min-h-[500px] py-8">
+          <section id="section-trainer" className="flex-1 bg-black flex flex-col relative">
             <DanceGrid
               currentTarget={currentTarget}
               interactiveActiveCells={interactiveActiveCells}
@@ -284,24 +284,24 @@ export default function App() {
               onCellClick={handleCellClick}
             />
             
-            <div id="sequence-control-box" className="mt-8 max-w-sm w-full px-6">
+            <div id="sequence-control-box" className="w-full">
               {!isRunning && !isCountingDown ? (
                 <button
                   id="btn-start-sequence"
                   onClick={startDrill}
-                  className="w-full py-4 bg-sky-500 hover:bg-sky-400 text-zinc-950 font-bold uppercase tracking-widest text-xs rounded transition-colors shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+                  className="w-full py-5 bg-sky-500 hover:bg-sky-400 text-zinc-950 font-bold uppercase tracking-widest text-sm transition-colors shadow-[0_0_15px_rgba(14,165,233,0.3)]"
                 >
                   Start Sequence
                 </button>
               ) : isCountingDown ? (
-                <div id="status-initializing" className="w-full py-4 bg-amber-500/10 border border-amber-500/20 text-amber-500 font-bold uppercase tracking-widest text-xs rounded text-center animate-pulse">
+                <div id="status-initializing" className="w-full py-5 bg-amber-500/10 border-b border-amber-500/20 text-amber-500 font-bold uppercase tracking-widest text-sm text-center animate-pulse">
                   Initializing...
                 </div>
               ) : (
                 <button
                   id="btn-abort-sequence"
                   onClick={resetDrill}
-                  className="w-full py-4 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20 text-rose-500 font-bold uppercase tracking-widest text-xs rounded transition-colors"
+                  className="w-full py-5 bg-rose-500/10 border-b border-rose-500/20 hover:bg-rose-500/20 text-rose-500 font-bold uppercase tracking-widest text-sm transition-colors"
                 >
                   Abort Sequence
                 </button>
