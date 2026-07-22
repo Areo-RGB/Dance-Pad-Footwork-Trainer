@@ -49,7 +49,7 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
 
           // Theme styling rules
           let bgStyle = 'bg-zinc-900 text-zinc-600 hover:bg-zinc-800';
-          let borderStyle = 'border border-zinc-800/50';
+          let borderStyle = 'border-2 border-zinc-800/50';
           let label: React.ReactNode = '';
           let activeClass = '';
 
@@ -62,7 +62,7 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
                 <span>L</span>
               </div>
             );
-            activeClass = 'font-bold scale-[1.02] text-2xl';
+            activeClass = 'font-bold text-2xl';
           } else if (footState === 'R') {
             bgStyle = 'bg-sky-500 text-zinc-950 shadow-[0_0_15px_rgba(14,165,233,0.3)] z-10';
             borderStyle = 'border-2 border-sky-400';
@@ -72,7 +72,7 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
                 <span>R</span>
               </div>
             );
-            activeClass = 'font-bold scale-[1.02] text-2xl';
+            activeClass = 'font-bold text-2xl';
           } else if (footState === 'LR') {
             bgStyle = 'bg-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.3)] z-10';
             borderStyle = 'border-2 border-indigo-400';
@@ -88,7 +88,7 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
                 </div>
               </div>
             );
-            activeClass = 'font-bold scale-[1.02] text-2xl';
+            activeClass = 'font-bold text-2xl';
           }
 
           return (

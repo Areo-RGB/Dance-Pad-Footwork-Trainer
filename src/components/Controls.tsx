@@ -39,13 +39,13 @@ const ThemeMiniGrid: React.FC<{ theme: DrillThemeDef; idPrefix: string }> = ({ t
         let Rd = currentFrame.rightDir || '↑';
 
         if (isBoth) {
-          bgClass = 'bg-amber-500 text-zinc-950 border-amber-400 font-bold scale-105 shadow-[0_0_8px_rgba(245,158,11,0.5)]';
+          bgClass = 'bg-amber-500 text-zinc-950 border border-amber-400 font-bold shadow-[0_0_8px_rgba(245,158,11,0.5)]';
           content = 'LR';
         } else if (isLeft) {
-          bgClass = 'bg-emerald-500 text-zinc-950 border-emerald-400 font-bold scale-105 shadow-[0_0_8px_rgba(16,185,129,0.5)]';
+          bgClass = 'bg-emerald-500 text-zinc-950 border border-emerald-400 font-bold shadow-[0_0_8px_rgba(16,185,129,0.5)]';
           content = Ld;
         } else if (isRight) {
-          bgClass = 'bg-sky-500 text-zinc-950 border-sky-400 font-bold scale-105 shadow-[0_0_8px_rgba(14,165,233,0.5)]';
+          bgClass = 'bg-sky-500 text-zinc-950 border border-sky-400 font-bold shadow-[0_0_8px_rgba(14,165,233,0.5)]';
           content = Rd;
         }
 

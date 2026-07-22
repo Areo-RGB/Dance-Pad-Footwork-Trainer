@@ -289,7 +289,7 @@ export default function App() {
                 <button
                   id="btn-start-sequence"
                   onClick={startDrill}
-                  className="w-full py-5 bg-sky-500 hover:bg-sky-400 text-zinc-950 font-bold uppercase tracking-widest text-sm transition-colors shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+                  className="w-full py-5 border-b border-transparent bg-sky-500 hover:bg-sky-400 text-zinc-950 font-bold uppercase tracking-widest text-sm transition-colors shadow-[0_0_15px_rgba(14,165,233,0.3)]"
                 >
                   Start Sequence
                 </button>
