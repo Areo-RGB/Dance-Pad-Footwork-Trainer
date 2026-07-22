@@ -10,6 +10,7 @@ interface ControlsProps {
 import { AnimatePresence, motion } from 'motion/react';
 
 const ThemePreviewOverlay: React.FC<{ theme: DrillThemeDef; onClose: () => void }> = ({ theme, onClose }) => {
+  const enableOrientation = theme.id === 'orientation';
   const themePatterns = DRILL_PATTERNS.filter(p => p.theme === theme.id);
   const frames = themePatterns.flatMap(p => p.frames);
   const previewFrames = frames.length > 0 ? frames : DRILL_PATTERNS.find(p => p.id === 'random_hits')?.frames || [];
@@ -43,7 +44,7 @@ const ThemePreviewOverlay: React.FC<{ theme: DrillThemeDef; onClose: () => void 
           const isRight = currentFrame.type === 'DOUBLE' && currentFrame.rightCell === idx;
           const isBoth = currentFrame.type === 'LR_SINGLE' && currentFrame.bothCell === idx;
 
-          let bgClass = 'bg-zinc-900 border border-zinc-800/40 text-transparent';
+          let bgClass = 'bg-zinc-900 border border-white text-transparent';
           let content: React.ReactNode = '';
           let Ld = currentFrame.leftDir || '↑';
           let Rd = currentFrame.rightDir || '↑';
@@ -53,10 +54,10 @@ const ThemePreviewOverlay: React.FC<{ theme: DrillThemeDef; onClose: () => void 
             content = (
                <div className="flex flex-col items-center justify-center gap-1">
                  <div className="flex flex-row items-center justify-center gap-2">
-                   <span className="text-xl font-black leading-none">{Ld}</span>
-                   <span className="text-xl font-black leading-none">{Rd}</span>
+                   {enableOrientation && <span className="text-3xl font-black leading-none">{Ld}</span>}
+                   {enableOrientation && <span className="text-3xl font-black leading-none">{Rd}</span>}
                  </div>
-                 <div className="flex flex-row items-center justify-center gap-3 text-xs font-bold">
+                 <div className="flex flex-row items-center justify-center gap-3 text-2xl font-bold">
                    <span>L</span>
                    <span>R</span>
                  </div>
@@ -65,15 +66,17 @@ const ThemePreviewOverlay: React.FC<{ theme: DrillThemeDef; onClose: () => void 
           } else if (isLeft) {
             bgClass = 'bg-emerald-500 text-zinc-950 border border-emerald-400 font-bold shadow-[0_0_15px_rgba(16,185,129,0.5)]';
             content = (
-               <div className="flex flex-row items-center justify-center gap-1.5">
-                 <span className="text-3xl font-black leading-none">{Ld}</span><span className="text-xl">L</span>
+               <div className="flex flex-row items-center justify-center gap-2">
+                 {enableOrientation && <span className="text-5xl font-black leading-none">{Ld}</span>}
+                 <span className={enableOrientation ? "text-3xl font-bold" : "text-5xl font-black"}>L</span>
                </div>
             );
           } else if (isRight) {
             bgClass = 'bg-sky-500 text-zinc-950 border border-sky-400 font-bold shadow-[0_0_15px_rgba(14,165,233,0.5)]';
             content = (
-               <div className="flex flex-row items-center justify-center gap-1.5">
-                 <span className="text-3xl font-black leading-none">{Rd}</span><span className="text-xl">R</span>
+               <div className="flex flex-row items-center justify-center gap-2">
+                 {enableOrientation && <span className="text-5xl font-black leading-none">{Rd}</span>}
+                 <span className={enableOrientation ? "text-3xl font-bold" : "text-5xl font-black"}>R</span>
                </div>
             );
           }

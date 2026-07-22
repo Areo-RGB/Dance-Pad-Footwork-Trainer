@@ -8,6 +8,7 @@ interface DanceGridProps {
   interactiveActiveCells: Set<CellIndex>;
   isCountingDown: boolean;
   countdownVal: number;
+  enableOrientation: boolean;
   onCellClick: (index: CellIndex) => void;
 }
 
@@ -16,6 +17,7 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
   interactiveActiveCells,
   isCountingDown,
   countdownVal,
+  enableOrientation,
   onCellClick,
 }) => {
   const getCellFootState = (cellIndex: CellIndex) => {
@@ -38,7 +40,7 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
   return (
     <div className="relative w-full mx-auto aspect-square p-0">
       {/* 3x3 Grid Container */}
-      <div className="grid grid-cols-3 gap-1 w-full h-full bg-zinc-800 p-0 rounded-none">
+      <div className="grid grid-cols-3 gap-[clamp(3px,0.45vmin,7px)] w-full h-full bg-black p-0 rounded-none">
         {GRID_CELLS.map((cell) => {
           const footState = getCellFootState(cell.index);
           const isUserTapped = interactiveActiveCells.has(cell.index);
@@ -48,47 +50,52 @@ export const DanceGrid: React.FC<DanceGridProps> = ({
           let rightDir = currentTarget?.rightDir || '↑';
 
           // Theme styling rules
-          let bgStyle = 'bg-zinc-900 text-zinc-600 hover:bg-zinc-800';
-          let borderStyle = 'border-2 border-zinc-800/50';
+          let bgStyle = 'bg-[var(--color-surface)] text-[var(--color-surface)] hover:bg-[var(--color-surface-2)]';
+          let borderStyle = 'border-2 border-white';
           let label: React.ReactNode = '';
           let activeClass = '';
 
           if (footState === 'L') {
-            bgStyle = 'bg-emerald-500 text-zinc-950 shadow-[0_0_15px_rgba(16,185,129,0.3)] z-10';
-            borderStyle = 'border-2 border-emerald-400';
+            bgStyle = 'bg-[var(--color-grid-green)] text-black z-10';
+            borderStyle = 'shadow-[inset_0_0_0_2px_rgba(255,255,255,0.72),inset_0_0_48px_rgba(255,255,255,0.18)]';
             label = (
               <div className="flex flex-row items-center justify-center gap-2">
-                <span className="text-2xl font-black leading-none">{leftDir}</span>
-                <span>L</span>
+                {enableOrientation && <span className="text-[clamp(4.5rem,18vw,12rem)] font-[900] leading-none tracking-[-0.04em]">{leftDir}</span>}
+                <span className={enableOrientation ? "text-[clamp(2rem,6vw,4rem)] font-[900] leading-none opacity-90" : "text-[clamp(4.5rem,18vw,12rem)] font-[900] leading-none tracking-[-0.04em]"}>L</span>
               </div>
             );
-            activeClass = 'font-bold text-2xl';
+            activeClass = '';
           } else if (footState === 'R') {
-            bgStyle = 'bg-sky-500 text-zinc-950 shadow-[0_0_15px_rgba(14,165,233,0.3)] z-10';
-            borderStyle = 'border-2 border-sky-400';
+            bgStyle = 'bg-[var(--color-grid-blue)] text-black z-10';
+            borderStyle = 'shadow-[inset_0_0_0_2px_rgba(255,255,255,0.72),inset_0_0_48px_rgba(255,255,255,0.18)]';
             label = (
               <div className="flex flex-row items-center justify-center gap-2">
-                <span className="text-2xl font-black leading-none">{rightDir}</span>
-                <span>R</span>
+                {enableOrientation && <span className="text-[clamp(4.5rem,18vw,12rem)] font-[900] leading-none tracking-[-0.04em]">{rightDir}</span>}
+                <span className={enableOrientation ? "text-[clamp(2rem,6vw,4rem)] font-[900] leading-none opacity-90" : "text-[clamp(4.5rem,18vw,12rem)] font-[900] leading-none tracking-[-0.04em]"}>R</span>
               </div>
             );
-            activeClass = 'font-bold text-2xl';
+            activeClass = '';
           } else if (footState === 'LR') {
-            bgStyle = 'bg-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.3)] z-10';
-            borderStyle = 'border-2 border-indigo-400';
+            bgStyle = 'bg-[var(--color-grid-yellow)] text-black z-10';
+            borderStyle = 'shadow-[inset_0_0_0_2px_rgba(255,255,255,0.72),inset_0_0_48px_rgba(255,255,255,0.18)]';
             label = (
               <div className="flex flex-col items-center justify-center gap-1">
-                <div className="flex flex-row items-center justify-center gap-3">
-                  <span className="text-2xl font-black leading-none">{leftDir}</span>
-                  <span className="text-2xl font-black leading-none">{rightDir}</span>
-                </div>
-                <div className="flex flex-row items-center justify-center gap-4 text-sm font-bold">
+                {enableOrientation && (
+                  <div className="flex flex-row items-center justify-center gap-3">
+                    <span className="text-[clamp(3rem,12vw,8rem)] font-[900] leading-none tracking-[-0.04em]">{leftDir}</span>
+                    <span className="text-[clamp(3rem,12vw,8rem)] font-[900] leading-none tracking-[-0.04em]">{rightDir}</span>
+                  </div>
+                )}
+                <div className={`flex flex-row items-center justify-center gap-4 ${enableOrientation ? "text-[clamp(1.5rem,5vw,3rem)] font-[900] leading-none opacity-90" : "text-[clamp(3rem,12vw,8rem)] font-[900] leading-none tracking-[-0.04em]"}`}>
                   <span>L</span>
                   <span>R</span>
                 </div>
               </div>
             );
-            activeClass = 'font-bold text-2xl';
+            activeClass = '';
+          } else {
+             // Inactive cell
+             activeClass = 'after:content-[\'\'] after:absolute after:inset-0 after:bg-black/68';
           }
 
           return (

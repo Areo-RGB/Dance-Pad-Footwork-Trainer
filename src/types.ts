@@ -2,7 +2,7 @@ export type CellIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type FootType = 'L' | 'R' | 'LR';
 
-export type FootDirection = '↑' | '↗' | '→' | '↘' | '↓' | '↙' | '←' | '↖';
+export type FootDirection = '↑' | '→' | '↓' | '←';
 
 export interface StepTarget {
   type: 'SINGLE' | 'DOUBLE' | 'LR_SINGLE';

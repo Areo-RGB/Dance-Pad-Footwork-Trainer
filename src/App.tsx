@@ -16,7 +16,7 @@ export default function App() {
   // App State & Settings
   const [settings, setSettings] = useState<DrillSettings>({
     mode: 'TRAINER',
-    intervalTimeMs: 800,
+    intervalTimeMs: 1500,
     targetSteps: 0,
     activeThemes: ['random'],
     audioVoicePrompt: false,
@@ -280,39 +280,42 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'trainer' | 'settings'>('trainer');
 
   return (
-    <div id="app-root" className="w-full min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans">
+    <div id="app-root" className="w-full min-h-screen bg-black text-[var(--color-text)] flex flex-col font-mono">
       <main id="app-main" className="flex-1 flex flex-col mb-16">
         {activeTab === 'trainer' ? (
           <section id="section-trainer" className="flex-1 bg-black flex flex-col relative">
-            <div className="w-full py-5 border-b border-transparent bg-sky-500 text-zinc-950 font-bold uppercase tracking-widest text-sm text-center shadow-[0_0_15px_rgba(14,165,233,0.3)]">
-              STEPS RUN: {currentStepIndex}
+            <div className="w-full py-3 bg-[var(--color-surface-2)] text-[var(--color-muted)] font-[700] uppercase tracking-[0.08em] text-[12px] text-center border-b border-[var(--color-border-subtle)]">
+              STEPS: <span className="text-white">{currentStepIndex}</span>
             </div>
-            <DanceGrid
-              currentTarget={currentTarget}
-              interactiveActiveCells={interactiveActiveCells}
-              isCountingDown={isCountingDown}
-              countdownVal={countdownVal}
-              onCellClick={handleCellClick}
-            />
+            <div className="flex-1 flex flex-col justify-center w-full max-w-2xl mx-auto">
+              <DanceGrid
+                currentTarget={currentTarget}
+                interactiveActiveCells={interactiveActiveCells}
+                isCountingDown={isCountingDown}
+                countdownVal={countdownVal}
+                enableOrientation={settings.activeThemes.includes('orientation')}
+                onCellClick={handleCellClick}
+              />
+            </div>
             
-            <div id="sequence-control-box" className="w-full">
+            <div id="sequence-control-box" className="w-full mt-auto">
               {!isRunning && !isCountingDown ? (
                 <button
                   id="btn-start-sequence"
                   onClick={startDrill}
-                  className="w-full py-5 border-b border-transparent bg-sky-500 hover:bg-sky-400 text-zinc-950 font-bold uppercase tracking-widest text-sm transition-colors shadow-[0_0_15px_rgba(14,165,233,0.3)]"
+                  className="w-full py-[14px] px-[20px] bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-text)] font-[700] uppercase tracking-[0.08em] text-[12px] transition-colors"
                 >
                   Start Sequence
                 </button>
               ) : isCountingDown ? (
-                <div id="status-initializing" className="w-full py-5 bg-amber-500/10 border-b border-amber-500/20 text-amber-500 font-bold uppercase tracking-widest text-sm text-center animate-pulse">
+                <div id="status-initializing" className="w-full py-[14px] px-[20px] bg-[var(--color-surface-2)] border-t border-[var(--color-border-subtle)] text-[var(--color-grid-yellow)] font-[700] uppercase tracking-[0.08em] text-[12px] text-center animate-pulse">
                   Initializing...
                 </div>
               ) : (
                 <button
                   id="btn-abort-sequence"
                   onClick={resetDrill}
-                  className="w-full py-5 bg-rose-500/10 border-b border-rose-500/20 hover:bg-rose-500/20 text-rose-500 font-bold uppercase tracking-widest text-sm transition-colors"
+                  className="w-full py-[14px] px-[20px] bg-[var(--color-surface-2)] border-t border-[var(--color-grid-red)]/30 hover:bg-[var(--color-surface-3)] text-[var(--color-grid-red)] font-[700] uppercase tracking-[0.08em] text-[12px] transition-colors"
                 >
                   Abort Sequence
                 </button>
@@ -320,7 +323,7 @@ export default function App() {
             </div>
           </section>
         ) : (
-          <aside id="section-settings" className="w-full p-6 flex-1 flex flex-col bg-zinc-900/20 overflow-y-auto">
+          <aside id="section-settings" className="w-full p-6 flex-1 flex flex-col bg-[var(--color-surface)] overflow-y-auto">
             <Controls
               settings={settings}
               onUpdateSettings={handleUpdateSettings}
@@ -329,22 +332,22 @@ export default function App() {
         )}
       </main>
 
-      <footer id="app-bottom-nav" className="fixed bottom-0 left-0 right-0 h-16 bg-zinc-900 border-t border-zinc-800 flex items-center justify-around px-4 pb-safe z-50">
+      <footer id="app-bottom-nav" className="fixed bottom-0 left-0 right-0 h-16 bg-[var(--color-surface-2)] border-t border-[var(--color-border-strong)] flex items-center justify-around px-4 pb-safe z-50">
         <button 
           id="tab-btn-trainer"
           onClick={() => setActiveTab('trainer')}
-          className={`flex flex-col items-center justify-center w-20 h-full gap-1 transition-colors ${activeTab === 'trainer' ? 'text-sky-400' : 'text-zinc-500 hover:text-zinc-400'}`}
+          className={`flex flex-col items-center justify-center w-20 h-full gap-1 transition-colors ${activeTab === 'trainer' ? 'text-[var(--color-accent)]' : 'text-[var(--color-muted)] hover:text-white'}`}
         >
           <Dumbbell size={20} />
-          <span id="tab-label-trainer" className="text-[10px] font-bold tracking-wider uppercase">Trainer</span>
+          <span id="tab-label-trainer" className="text-[10px] font-[700] tracking-[0.08em] uppercase">Trainer</span>
         </button>
         <button 
           id="tab-btn-settings"
           onClick={() => setActiveTab('settings')}
-          className={`flex flex-col items-center justify-center w-20 h-full gap-1 transition-colors ${activeTab === 'settings' ? 'text-sky-400' : 'text-zinc-500 hover:text-zinc-400'}`}
+          className={`flex flex-col items-center justify-center w-20 h-full gap-1 transition-colors ${activeTab === 'settings' ? 'text-[var(--color-accent)]' : 'text-[var(--color-muted)] hover:text-white'}`}
         >
           <Settings size={20} />
-          <span id="tab-label-settings" className="text-[10px] font-bold tracking-wider uppercase">Settings</span>
+          <span id="tab-label-settings" className="text-[10px] font-[700] tracking-[0.08em] uppercase">Settings</span>
         </button>
       </footer>
       
