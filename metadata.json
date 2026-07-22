@@ -1,0 +1,6 @@
+{
+  "name": "Dance Pad Footwork Trainer",
+  "description": "Interactive 3x3 dance pad grid trainer that cues Left (L), Right (R), and Combined (LR) feet step patterns with customizable intervals, duration, audio cues, and workout stats.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
